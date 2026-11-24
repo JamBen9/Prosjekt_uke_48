@@ -1,13 +1,8 @@
 from flask import Flask, render_template
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("Monitor")
 def index():
-    return "Hei, Flask!"
-  
-
-@app.route("/monitorering")
-def om_meg():
     return render_template("index.html")
 
 @app.route("/admin")
