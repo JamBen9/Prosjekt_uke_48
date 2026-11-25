@@ -1,4 +1,5 @@
 import subprocess
+import re
 from jinja2 import Environment, FileSystemLoader
 def ping():
     result = subprocess.run(
@@ -14,3 +15,16 @@ def ping():
     else:
         return "Ping: no reply"
 ping()
+
+def get_wifi_signal():
+    result = subprocess.run(
+        ["iw", "dev", "wlan0", "link"],
+        capture_output=True,
+        text=True,
+    )
+
+    match = re.search(r"signal:\s*(-?\d+)\s*dBm", result.stdout)
+    if match:
+        return int(match.group(1))
+
+    return None
